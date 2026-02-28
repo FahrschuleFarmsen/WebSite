@@ -939,6 +939,19 @@ a {
     position: relative;
 }
 
+.team-row-centered {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+}
+
+.team-row-centered .team-card {
+    width: calc((100% - 28px * 2) / 3);
+    max-width: 380px;
+    flex-shrink: 0;
+}
+
 .team-card {
     background: var(--bg-white);
     border: 1px solid var(--border-color);
@@ -1701,6 +1714,15 @@ a {
         aspect-ratio: 4 / 3;
     }
 
+    .team-row-centered {
+        flex-direction: column;
+    }
+
+    .team-row-centered .team-card {
+        width: 100%;
+        max-width: 100%;
+    }
+
     .team-cta {
         padding: 28px 20px;
     }
@@ -1718,24 +1740,69 @@ a {
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+
     h1 {
-        font-size: 2rem;
+        font-size: 1.875rem;
     }
     
     h2 {
         font-size: 1.5rem;
     }
+
+    .section-header {
+        margin-bottom: 40px;
+    }
     
+    .hero {
+        padding-top: 90px;
+        padding-bottom: 48px;
+    }
+
+    .hero-badge {
+        font-size: 0.75rem;
+        padding: 8px 16px;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
     .hero-cta {
         flex-direction: column;
+        margin-top: 28px;
     }
     
     .btn-primary, .btn-secondary {
         width: 100%;
+        padding: 16px 24px;
+        font-size: 1rem;
+        min-height: 50px;
     }
     
+    .hero-stats {
+        gap: 14px;
+        margin-top: 36px;
+        padding-top: 28px;
+    }
+
     .stat-number {
         font-size: 2rem;
+    }
+
+    .hero-image {
+        max-width: 220px;
+    }
+
+    .logo-image {
+        height: 40px;
+        max-width: 220px;
+    }
+
+    .navbar.scrolled .logo-image {
+        height: 36px;
     }
     
     .service-card {
@@ -1743,18 +1810,114 @@ a {
     }
     
     .booking-widget-placeholder {
-        padding: 36px 18px;
+        padding: 32px 16px;
     }
     
     .hours-card {
-        padding: 24px 18px;
+        padding: 24px 16px;
+    }
+
+    .hours-row {
+        font-size: 0.875rem;
     }
     
     .testimonial-card {
-        padding: 24px;
+        padding: 22px;
     }
     
     .team-info {
         padding: 22px 20px 26px;
+    }
+
+    .map-placeholder {
+        min-height: 260px;
+    }
+
+    .map-placeholder iframe {
+        height: 260px;
+    }
+
+    .footer {
+        padding: 48px 0 20px;
+    }
+
+    .footer-grid {
+        gap: 24px;
+        padding-bottom: 24px;
+    }
+}
+
+/* Mobile Call Button - nur auf Mobilgeräten sichtbar */
+.mobile-call-btn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-call-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        z-index: 900;
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+        font-size: 0.9375rem;
+        padding: 14px 24px;
+        border-radius: var(--radius-full);
+        box-shadow: 0 6px 24px rgba(161, 43, 56, 0.4);
+        text-decoration: none;
+        transition: var(--transition-normal);
+    }
+
+    .mobile-call-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mobile-call-btn:active {
+        transform: scale(0.95);
+    }
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+    @media (max-width: 768px) {
+        .mobile-call-btn {
+            bottom: max(16px, env(safe-area-inset-bottom));
+        }
+    }
+}
+
+/* iPhone safe areas (notch / Dynamic Island) */
+@supports (padding: env(safe-area-inset-top)) {
+    .navbar {
+        padding-top: max(16px, env(safe-area-inset-top));
+    }
+
+    .navbar.scrolled {
+        padding-top: max(10px, env(safe-area-inset-top));
+    }
+
+    .footer-bottom {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+    .feature-card:hover,
+    .service-card:hover,
+    .team-card:hover,
+    .booking-card:hover,
+    .testimonial-card:hover,
+    .contact-item:hover {
+        transform: none;
+    }
+
+    .btn-primary, .btn-secondary, .btn-nav, a, button {
+        -webkit-tap-highlight-color: transparent;
     }
 }
