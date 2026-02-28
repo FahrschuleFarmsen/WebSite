@@ -134,7 +134,7 @@ function initStatsAnimation() {
     const animateStats = () => {
         if (animated) return;
 
-        const statsSection = document.querySelector('.hero-stats');
+        const statsSection = document.querySelector('.hero-stats-bar');
         if (!statsSection) return;
 
         const rect = statsSection.getBoundingClientRect();
@@ -284,7 +284,7 @@ window.addEventListener('load', () => {
     document.body.classList.add('loaded');
     
     // Trigger hero animations
-    const heroElements = document.querySelectorAll('.hero-badge, .hero h1, .hero-subtitle, .hero-cta, .hero-stats, .hero-image');
+    const heroElements = document.querySelectorAll('.hero-badge, .hero h1, .hero-subtitle, .hero-cta, .hero-stats-bar');
     heroElements.forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
