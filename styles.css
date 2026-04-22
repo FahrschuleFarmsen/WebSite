@@ -73,9 +73,6 @@
     --radius-full: 50px;
 }
 
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
-
 /* Reset & Base */
 *, *::before, *::after {
     margin: 0;
@@ -385,16 +382,22 @@ a {
     right: 0;
     background: var(--bg-white);
     padding: 24px;
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: 12px;
     z-index: 999;
     box-shadow: var(--shadow-lg);
     border-top: 1px solid var(--border-light);
+    transform: translateY(-110%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.35s;
 }
 
 .mobile-menu.active {
-    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
 }
 
 .mobile-menu a {
@@ -438,9 +441,10 @@ a {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse 70% 50% at 50% 40%, rgba(161, 43, 56, 0.05) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(161, 43, 56, 0.03) 0%, transparent 50%),
-        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(201, 162, 39, 0.02) 0%, transparent 50%);
+        radial-gradient(ellipse 70% 50% at 50% 40%, rgba(161, 43, 56, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(161, 43, 56, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(201, 162, 39, 0.03) 0%, transparent 50%),
+        linear-gradient(180deg, var(--bg-white) 0%, var(--bg-cream) 50%, var(--bg-white) 100%);
 }
 
 .hero-shapes {
@@ -632,6 +636,20 @@ a {
 .hero h1 .highlight {
     color: var(--primary);
     display: block;
+    position: relative;
+}
+
+.hero h1 .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    opacity: 0.6;
 }
 
 .hero-subtitle {
@@ -658,9 +676,12 @@ a {
     align-items: center;
     justify-content: center;
     gap: 48px;
-    padding: 36px 0;
-    border-top: 1px solid var(--border-color);
+    padding: 40px 32px;
     animation: fadeInUp 0.6s ease 0.5s both;
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
 }
 
 .stat {
@@ -712,6 +733,19 @@ a {
     padding: 72px 0;
     background: var(--bg-white);
     border-top: 1px solid var(--border-light);
+    position: relative;
+}
+
+.features::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
 }
 
 .features-grid {
@@ -828,6 +862,16 @@ a {
 .step-card p {
     font-size: 0.875rem;
     line-height: 1.7;
+}
+
+/* Step number hover effect */
+.step-card:hover .step-number {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(161, 43, 56, 0.35);
+}
+
+.step-number {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* ===================================
@@ -952,8 +996,8 @@ a {
 
 /* Service CTA Card */
 .service-card-cta {
-    background: rgba(161, 43, 56, 0.025);
-    border: 2px dashed var(--primary);
+    background: linear-gradient(135deg, rgba(161, 43, 56, 0.03) 0%, rgba(161, 43, 56, 0.06) 100%);
+    border: 2px solid rgba(161, 43, 56, 0.15);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -961,7 +1005,8 @@ a {
 }
 
 .service-card-cta:hover {
-    border-style: solid;
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(161, 43, 56, 0.04) 0%, rgba(161, 43, 56, 0.08) 100%);
 }
 
 .service-card-cta .service-icon {
@@ -1076,6 +1121,27 @@ a {
     opacity: 0.6;
 }
 
+.team-initials {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(161, 43, 56, 0.08);
+    border-radius: 50%;
+    letter-spacing: -0.02em;
+}
+
+.team-initials-lg {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+}
+
 .team-info {
     padding: 28px 26px 30px;
 }
@@ -1158,6 +1224,7 @@ a {
     position: relative;
     transition: var(--transition-normal);
     border: 1px solid transparent;
+    border-left: 3px solid var(--primary);
 }
 
 .testimonial-card:hover {
@@ -1226,6 +1293,40 @@ a {
     fill: #F5A623;
 }
 
+/* Reviews Badge */
+.reviews-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 48px;
+    padding: 16px 28px;
+    background: var(--bg-white);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reviews-badge-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.reviews-badge-stars svg {
+    width: 18px;
+    height: 18px;
+    fill: #F5A623;
+}
+
+.reviews-badge-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
 /* ===================================
    BOOKING SECTION
    =================================== */
@@ -1276,6 +1377,7 @@ a {
     border-radius: var(--radius-md);
     padding: 30px 22px;
     transition: var(--transition-normal);
+    text-align: center;
 }
 
 .booking-card:hover {
@@ -1326,40 +1428,68 @@ a {
     border-radius: var(--radius-full);
 }
 
-/* Booking Widget */
-.booking-widget {
+/* Booking CTA Box */
+.booking-cta-box {
     max-width: 640px;
     margin: 0 auto;
 }
 
-.booking-widget-placeholder {
-    background: var(--bg-soft);
-    border: 2px dashed var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 52px 36px;
+.booking-cta-content {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 48px 36px;
     text-align: center;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
 }
 
-.booking-widget-placeholder > svg {
-    width: 56px;
-    height: 56px;
-    color: var(--primary);
-    margin-bottom: 20px;
-    opacity: 0.45;
+.booking-cta-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-gradient);
 }
 
-.booking-widget-placeholder h3 {
+.booking-cta-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: var(--shadow-primary);
+}
+
+.booking-cta-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.booking-cta-content h3 {
     margin-bottom: 12px;
     font-size: 1.25rem;
+    font-family: var(--font-display);
 }
 
-.booking-widget-placeholder > p {
-    margin-bottom: 24px;
+.booking-cta-content > p {
+    margin-bottom: 28px;
     font-size: 0.9375rem;
 }
 
-.booking-widget-placeholder .btn-primary {
-    margin-bottom: 16px;
+.booking-cta-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 .booking-hint {
@@ -1541,9 +1671,20 @@ a {
    =================================== */
 
 .footer {
-    background: var(--dark);
+    background: linear-gradient(180deg, #1E1E1E 0%, #141414 100%);
     padding: 72px 0 24px;
     color: var(--text-light);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-gradient);
 }
 
 .footer-grid {
@@ -1724,7 +1865,8 @@ a {
     .hero-stats-bar {
         flex-direction: column;
         gap: 20px;
-        padding: 28px 0;
+        padding: 28px 20px;
+        border-radius: var(--radius-md);
     }
 
     .stat-divider {
@@ -1854,8 +1996,12 @@ a {
         padding: 26px 20px;
     }
     
-    .booking-widget-placeholder {
+    .booking-cta-content {
         padding: 32px 16px;
+    }
+
+    .booking-cta-actions {
+        flex-direction: column;
     }
     
     .hours-card {
@@ -1948,6 +2094,61 @@ a {
 
     .footer-bottom {
         padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Scroll to Top Button */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 800;
+    width: 48px;
+    height: 48px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background 0.2s ease;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    box-shadow: var(--shadow-primary);
+}
+
+.scroll-top-btn svg {
+    width: 22px;
+    height: 22px;
+    color: inherit;
+}
+
+@media (max-width: 768px) {
+    .scroll-top-btn {
+        bottom: 16px;
+        left: 16px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .scroll-top-btn svg {
+        width: 18px;
+        height: 18px;
     }
 }
 

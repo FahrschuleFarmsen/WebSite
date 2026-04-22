@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStatsAnimation();
     initScrollAnimations();
     initActiveNavigation();
+    initScrollToTop();
 });
 
 // ===================================
@@ -296,6 +297,27 @@ window.addEventListener('load', () => {
         }, 100 + index * 100);
     });
 });
+
+// ===================================
+// SCROLL TO TOP
+// ===================================
+
+function initScrollToTop() {
+    const btn = document.querySelector('.scroll-top-btn');
+    if (!btn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 600) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    }, { passive: true });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
 // ===================================
 // FORM VALIDATION (Future Use)
